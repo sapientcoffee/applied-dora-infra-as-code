@@ -35,13 +35,14 @@ module "gke" {
   regional                  = false
   region                    = var.region
   zones                     = [var.zone]
-  network                   = "default"
-  subnetwork                = "default"
+  network                   = google_compute_network.gke-network.name
+  subnetwork                = google_compute_subnetwork.cluster-subnet.name
   ip_range_pods             = ""
   ip_range_services         = ""
   config_connector          = true
   create_service_account    = false
   remove_default_node_pool  = true
+  
 
   node_pools = [
     {

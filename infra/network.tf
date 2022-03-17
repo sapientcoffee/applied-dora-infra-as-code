@@ -9,7 +9,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-resource "google_compute_network" "vpc-network" {
+resource "google_compute_network" "gke-network" {
   name                    = "${var.deployment_name}-vpc"
   project                 = var.project_id
   auto_create_subnetworks = false
@@ -19,7 +19,7 @@ resource "google_compute_subnetwork" "cluster-subnet" {
   name                     = "${var.deployment_name}-gke"
   project                  = var.project_id
   region                   = var.region
-  network                  = google_compute_network.vpc-network.id
+  network                  = google_compute_network.gke-network.id
   private_ip_google_access = true
   ip_cidr_range            = "10.1.0.0/22"
 }
