@@ -37,6 +37,8 @@ module "gke" {
   zones                     = [var.zone]
   network                   = google_compute_network.gke-network.name
   subnetwork                = google_compute_subnetwork.cluster-subnet.name
+#   network                   = "default"
+#   subnetwork                = "default"
   ip_range_pods             = ""
   ip_range_services         = ""
   config_connector          = true
