@@ -6,7 +6,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "coffee-with-rob-state"
-    prefix = "terraform/state/adora"
+    bucket = "coffee-with-iac-state"
+    prefix = "terraform/state/infra"
   }
 }

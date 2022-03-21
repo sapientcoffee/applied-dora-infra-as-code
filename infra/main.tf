@@ -1,4 +1,11 @@
-
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "3.77.0"
+    }
+  }
+}
 
 data "google_project" "project" {
   project_id = var.project_id
@@ -29,32 +36,24 @@ module "project_services" {
 }
 
 module "gke" {
-  source                    = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
-  project_id                = var.project_id
-  name                      = "${var.deployment_name}-cluster"
-  regional                  = false
-  region                    = var.region
-  zones                     = [var.zone]
-  network                   = google_compute_network.gke-network.name
-  subnetwork                = google_compute_subnetwork.cluster-subnet.name
-#   network                   = "default"
-#   subnetwork                = "default"
-  ip_range_pods             = ""
-  ip_range_services         = ""
-  config_connector          = true
-  create_service_account    = false
-  remove_default_node_pool  = true
-  
+  source                 = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"
+  project_id             = var.project_id
+  name                   = "${var.deployment_name}-cluster"
+  regional               = false
+  region                 = var.region
+  zones                  = [var.zone]
+  network                = "default"
+  subnetwork             = "default"
+  ip_range_pods          = ""
+  ip_range_services      = ""
+  config_connector       = true
+  create_service_account = false
 
   node_pools = [
     {
       name         = "${var.deployment_name}-node-pool"
-      min_count          = 1
-      max_count          = 1
-      initial_node_count = 1
-      machine_type = "n1-standard-1"
-      auto_repair        = true
-      auto_upgrade       = false
+      node_count   = 3
+      machine_type = "e2-standard-2"
     }
   ]
 
@@ -105,3 +104,13 @@ module "service_account_binding" {
     module.workload_identity,
   ]
 }
+
+# resource "null_resource" "configconnector_resources" {
+#   provisioner "local-exec" {
+#     command = "sed -i '' 's/GSA_EMAIL/${module.service_account.email}/' configconnector.yaml"
+#   }
+
+#   provisioner "local-exec" {
+#     command = "sed -i '' 's/PROJECT_ID/${var.project_id}/' namespace.yaml"
+#   }
+# }
