@@ -1,0 +1,29 @@
+---
+steps:
+# Run terraform init
+- name: gcr.io/config-validator/terraform-validator
+  entrypoint: terraform
+  dir: 'terraform/'
+  args:
+  - init
+# Run terraform plan and save to terraform.plan file (binary) 
+- name: gcr.io/config-validator/terraform-validator
+  dir: 'terraform/'
+  entrypoint: terraform
+  args:
+  - plan
+  - -out=terraform.plan
+# Convert the `terraform.plan` file to JSON
+- name: gcr.io/config-validator/terraform-validator
+  entrypoint: "/bin/bash"
+  args: ['-c', 'terraform show -json terraform.plan > terraform.json']
+  dir: 'terraform/'
+# Run Terrafrom-validator validate on the Tarrafrom plan and look for violations
+- name: gcr.io/config-validator/terraform-validator
+  dir: 'terraform/'
+  args:
+  - validate
+  - terraform.json
+  - --policy-path=../policy-library/
+  - --project
+  - "coffee-with-rob"
