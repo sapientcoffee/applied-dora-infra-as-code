@@ -10,3 +10,4 @@ steps:
   - 'GOOGLE_CLOUD_PROJECT=${PROJECT_ID}'
   dir: 'infra/'
   args: ['apply', '-auto-approve']
+  timeout: '1600s'

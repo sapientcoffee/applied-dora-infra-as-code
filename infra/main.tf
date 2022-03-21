@@ -105,12 +105,12 @@ module "service_account_binding" {
   ]
 }
 
-resource "null_resource" "configconnector_resources" {
-  provisioner "local-exec" {
-    command = "sed -i '' 's/GSA_EMAIL/${module.service_account.email}/' configconnector.yaml"
-  }
+# resource "null_resource" "configconnector_resources" {
+#   provisioner "local-exec" {
+#     command = "sed -i '' 's/GSA_EMAIL/${module.service_account.email}/' configconnector.yaml"
+#   }
 
-  provisioner "local-exec" {
-    command = "sed -i '' 's/PROJECT_ID/${var.project_id}/' namespace.yaml"
-  }
-}
+#   provisioner "local-exec" {
+#     command = "sed -i '' 's/PROJECT_ID/${var.project_id}/' namespace.yaml"
+#   }
+# }
