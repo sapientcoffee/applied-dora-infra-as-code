@@ -9,4 +9,4 @@ steps:
   env:
   - 'GOOGLE_CLOUD_PROJECT=${PROJECT_ID}'
   dir: 'terraform/'
-  args: ['apply', '-auto-approve']
+  args: ['plan']
