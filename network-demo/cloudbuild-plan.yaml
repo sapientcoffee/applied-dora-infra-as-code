@@ -2,11 +2,11 @@ steps:
 - name: 'hashicorp/terraform:1.0.6'
   env:
   - 'GOOGLE_CLOUD_PROJECT=${PROJECT_ID}'
-  dir: 'terraform/'
+  dir: 'network-demo/terraform/'
   args: ['init']
 
 - name: 'hashicorp/terraform:1.0.6'
   env:
   - 'GOOGLE_CLOUD_PROJECT=${PROJECT_ID}'
-  dir: 'terraform/'
-  args: ['apply', '-auto-approve']
+  dir: 'network-demo/terraform/'
+  args: ['plan']
