@@ -7,6 +7,6 @@
 terraform {
   backend "gcs" {
     bucket = "coffee-with-iac-state"
-    prefix = "terraform/state/infra"
+    prefix = "terraform/infra"
   }
 }
