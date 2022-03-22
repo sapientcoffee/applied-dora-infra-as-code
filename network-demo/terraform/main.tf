@@ -23,11 +23,11 @@ resource "google_compute_subnetwork" "subnet-espresso" {
   network       = "${google_compute_network.iac-virt-net.self_link}"
 
   // Add some logging/IPFix
-#   log_config {
-#     aggregation_interval = "INTERVAL_10_MIN"
-#     flow_sampling        = 0.5
-#     metadata             = "INCLUDE_ALL_METADATA"
-#   }
+  log_config {
+    aggregation_interval = "INTERVAL_10_MIN"
+    flow_sampling        = 0.5
+    metadata             = "INCLUDE_ALL_METADATA"
+  }
 }
 
 // Make a change without PR
