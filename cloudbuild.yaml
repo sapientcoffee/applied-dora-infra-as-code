@@ -2,7 +2,7 @@ steps:
 - name: 'hashicorp/terraform:1.0.6'
   env:
   - 'GOOGLE_CLOUD_PROJECT=${PROJECT_ID}'
-  dir: 'infra/'
+  dir: 'demo/'
   args: ['init']
 
 - name: 'hashicorp/terraform:1.0.6'
